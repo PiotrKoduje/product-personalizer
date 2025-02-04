@@ -9,11 +9,16 @@ import shortid from 'shortid';
 const Product = props => {
 
   const [ currentColor, setCurrentColor ] = useState(props.colors[0]);
-  const [ currentSise, setCurrentSize ] = useState(props.sizes[0].name);
+  const [ currentSize, setCurrentSize ] = useState(props.sizes[0].name);
 
   const prepareColorClassName = color => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()]
   }
+
+  const getPrice = () => {
+    const sizeObject = props.sizes.find((element) => element.name === currentSize);
+    return props.basePrice + sizeObject.additionalPrice;
+  };
 
   return (
     <article className={styles.product}>
@@ -26,7 +31,7 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {props.basePrice}$</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
@@ -36,8 +41,12 @@ const Product = props => {
               {props.sizes.map(size => {
                 return (
                   <li>
-                    <button type='button' key={shortid()} onClick={() => setCurrentSize(size.name)} className={size.name === currentSise && styles.active} >{size.name}</button>
-                    <button className={size.name === currentSise ? styles.active : ''} type='button'>{size.name}</button>
+                    <button
+                      type='button' 
+                      key={shortid()} 
+                      onClick={() => setCurrentSize(size.name)} 
+                      className={size.name === currentSize && styles.active} >{size.name}
+                    </button>
                   </li>
                 );
               })}
@@ -51,7 +60,11 @@ const Product = props => {
               {props.colors.map(color => {
                 return(
                   <li>
-                    <button type='button' key={shortid()} onClick={() => setCurrentColor(color)} className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /> 
+                    <button
+                      type='button' 
+                      key={shortid()} 
+                      onClick={() => setCurrentColor(color)} 
+                      className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /> 
                   </li>
                 );
               })}
