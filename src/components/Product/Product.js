@@ -3,10 +3,11 @@ import clsx from 'clsx';
 import Button from '../Button/Button'
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-
+import shortid from 'shortid';
 
 
 const Product = props => {
+
   const [ currentColor, setCurrentColor ] = useState(props.colors[0]);
   const [ currentSise, setCurrentSize ] = useState(props.sizes[0].name);
 
@@ -35,8 +36,8 @@ const Product = props => {
               {props.sizes.map(size => {
                 return (
                   <li>
-                    <button className={size.name === currentSise && styles.active} type='button'>{size.name}</button>
-                    {/* <button className={size.name === currentSise ? styles.active : ''} type='button'>{size.name}</button> */}
+                    <button type='button' key={shortid()} onClick={() => setCurrentSize(size.name)} className={size.name === currentSise && styles.active} >{size.name}</button>
+                    <button className={size.name === currentSise ? styles.active : ''} type='button'>{size.name}</button>
                   </li>
                 );
               })}
@@ -50,7 +51,7 @@ const Product = props => {
               {props.colors.map(color => {
                 return(
                   <li>
-                    <button type='button' className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /> 
+                    <button type='button' key={shortid()} onClick={() => setCurrentColor(color)} className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /> 
                   </li>
                 );
               })}
