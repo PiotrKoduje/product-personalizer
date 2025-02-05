@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import Button from '../Button/Button'
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import shortid from 'shortid';
 
 
 const Product = props => {
@@ -40,13 +39,14 @@ const Product = props => {
 
               {props.sizes.map(size => {
                 return (
-                  <li>
-                    <button
-                      type='button' 
-                      key={shortid()} 
+                  <li key={size.name} >
+                    <Button
+                      type='button'
+                      className={size.name === currentSize && styles.active} 
                       onClick={() => setCurrentSize(size.name)} 
-                      className={size.name === currentSize && styles.active} >{size.name}
-                    </button>
+                    >
+                      {size.name}
+                    </Button>
                   </li>
                 );
               })}
@@ -59,12 +59,13 @@ const Product = props => {
 
               {props.colors.map(color => {
                 return(
-                  <li>
-                    <button
+                  <li key={color}>
+                    <Button
                       type='button' 
-                      key={shortid()} 
                       onClick={() => setCurrentColor(color)} 
-                      className={clsx(prepareColorClassName(color), color === currentColor && styles.active)} /> 
+                      className={clsx(prepareColorClassName(color), color === currentColor && styles.active)}
+                    > 
+                    </Button>
                   </li>
                 );
               })}
