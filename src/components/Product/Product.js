@@ -19,13 +19,24 @@ const Product = props => {
     return props.basePrice + sizeObject.additionalPrice;
   };
 
+  const showSummary = (e) => {
+    e.preventDefault();
+    console.log('Summary');
+    console.log('===============');
+    console.log('Name: ', props.title);
+    console.log('Price: ', getPrice());
+    console.log('Size: ', currentSize);
+    console.log('Color: ', currentColor,);
+  };
+
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
         <img 
           className={styles.image}
-          alt="Kodilla shirt"
-          src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.name}--${currentColor}.jpg`} />
+          alt={props.title}
+          src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.name}--${currentColor}.jpg`}
+        />
       </div>
       <div>
         <header>
@@ -72,7 +83,7 @@ const Product = props => {
 
             </ul>
           </div>
-          <Button className={styles.button}>
+          <Button className={styles.button} onClick={(e) => showSummary(e)}>
             <span className="fa fa-shopping-cart" />
           </Button>
         </form>
