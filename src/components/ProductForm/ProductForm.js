@@ -9,7 +9,7 @@ const ProductForm = props => {
     <div>
       <header>
         <h2 className={styles.name}>{props.title}</h2>
-        <span className={styles.price}>Price: {props.getPrice()}$</span>
+        <span className={styles.price}>Price: {props.price}$</span>
       </header>
       <form>
         <OptionSize 
@@ -41,7 +41,7 @@ ProductForm.propTypes = {
   basePrice: PropTypes.number.isRequired,
   colors: PropTypes.arrayOf(PropTypes.string),
   sizes: PropTypes.arrayOf(PropTypes.object),
-  getPrice: PropTypes.func.isRequired,
+  price: PropTypes.number.isRequired,
   showSummary: PropTypes.func.isRequired,
   currentSize: PropTypes.string.isRequired,
   setCurrentSize: PropTypes.func.isRequired,
